@@ -3,12 +3,13 @@ MAINTAINER Name<email>
 ENV DEBIAN_FRONTEND noninteractive
 # Install basics
 RUN apt-get update
-RUN apt-get install -y apt-transport-https curl sudo locales
+RUN apt-get install -y apt-transport-https curl sudo locales gnupg
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/mssql-tools.list
 RUN apt-get update
+RUN apt-get install -y language-pack-en-base dialog
 RUN sudo locale-gen en_US.UTF-8
-RUN apt-get install -y software-properties-common && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update
+RUN apt-get install -y software-properties-common && LC_ALL=en_UK.UTF-8 add-apt-repository -y ppa:ondrej/php && apt-get update
 RUN sudo ACCEPT_EULA=Y apt-get install -y mssql-tools
 # Install PHP 7.1
 RUN apt-get install -y --allow-unauthenticated php7.1 php7.1-mysql php7.1-mcrypt php7.1-cli php7.1-gd php7.1-curl php7.1-dev apache2 libapache2-mod-php7.1 mcrypt php-mbstring php-pear
